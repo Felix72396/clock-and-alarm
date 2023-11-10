@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock And Alarm</title>
+
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body{
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+        }
+
+        h1{
+            text-align: center;
+            padding-block: 10px;
+            background-color: #161414;
+            color: #fff;
+        }
+
+        div.container{
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 600px;
+            height: 300px;
+            
+            display: grid;
+            grid-template-rows: 2fr 1fr;
+        }
+
+        section{
+            border: 2px solid #000;
+        }
+
+        section.half-1{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        span#digital-clock{
+            font-size: 24px;
+            font-weight: 900;
+            display: block;
+            box-shadow: -3px -3px 5px 0 #cecdcd,
+            1px 1px 4px 0 #f1f0f0;
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        span#analog-clock{
+            background-image: url(analog.png);
+            background-position: center center;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            border-radius: 50%;
+            height: 70%;
+            aspect-ratio: 1;
+            box-shadow: -3px -3px 5px 0 #cecdcd,
+            1px 1px 4px 0 #f1f0f0;
+            position: relative;
+        }
+
+        span#analog-clock i{
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            width: 10px;
+            aspect-ratio: 1;
+            background-color: #000;
+            border-radius: 50%;
+            transform: rotate(var(--deg));
+        }
+
+        span#analog-clock i::before{
+            content: "";
+            position: absolute;
+            background-color: inherit;
+            transform: translateX(-50%);
+            top: -23px;
+            left: 50%;
+            width: 8px;
+            height: 25px;
+            border-radius: 50px 50px 0 0;
+
+        }
+
+        span#analog-clock i.minute-hand::before{
+            top: -38px;
+            width: 5px;
+            height: 40px;
+        }
+
+        span#analog-clock i.second-hand::before{
+            top: -46px;
+            width: 2px;
+            height: 48px;
+        }
+
+
+
+        span#analog-clock i.minute-hand{
+            background-color: #444343;
+        }
+
+        span#analog-clock i.second-hand{
+            background-color: #686666;
+        }
+
+        section.half-2{
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            overflow: hidden;
+            isolation: isolate;
+        }
+
+
+        button{
+            width: 110px;
+            height: 60%;
+            opacity: .8;
+            --bgColor: rgb(20, 140, 20);
+            --bgShadow: rgb(12, 72, 12);
+            color: #fff;
+            background-color: var(--bgColor);
+          
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 900;
+            border: 0;
+            /* outline: 1px dotted #00000086; */
+            /* outline-offset: -10px; */
+            box-shadow: none;
+            transition: .5s all;
+        }
+
+        button:nth-of-type(2), button:nth-of-type(4)
+        {
+            --bgColor: rgb(225, 40, 12);
+            --bgShadow: rgb(102, 2, 2);
+
+        }
+
+        button:disabled{
+            opacity: .2;
+        }
+
+        button:not(:disabled):hover{
+            opacity: 1;
+            /* outline-offset: 5px;
+            outline-color: #000; */
+            cursor: pointer;
+            z-index: -1;
+            box-shadow: -3px -2px 3px 0 var(--bgShadow),
+                        3px 2px 3px 0 #eeefee94,
+                        0 0 500px 1000px var(--bgColor);
+            transform: rotate(1turn);
+        }
+
+        button:not(:disabled):active{
+            box-shadow: 0 0 500px 1000px var(--bgShadow);
+            transform: scale(1.2) skewX(-5deg);
+        }
+
+        img{
+            height: 80%;
+            aspect-ratio: 1;
+            animation: grow-shrink .9s infinite ease-in;
+        }
+
+        @keyframes grow-shrink {
+            0%{
+                transform: scale(1.5);
+            }
+            100%{
+                transform: scale(1);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- https://youtu.be/ktqSr7Lq_Hc?list=PLvq-jIkSeTUZ6QgYYO3MwG9EMqC-KoLXA&t=359 -->
+    <h1>Clock And Alarm Sound</h1>
+    
+    <div class="container">
+        <section class="half-1">
+            
+        </section>
+        <section class="half-2">
+            <button class="green" id="start-clock">START CLOCK</button>
+            <button class="red" id="stop-clock" disabled>STOP CLOCK</button>
+            <button class="green" id="start-alarm">START ALARM</button>
+            <button class="red" id="stop-alarm" disabled>STOP ALARM</button>
+        </section>
+    </div>
+
+    <script type="module" defer>
+        import clockAndAlarm from "./clock_and_alarm.js";
+        clockAndAlarm("button", ".half-1");
+        // getTime("time")
+    </script>
+   
+</body>
+</html>
